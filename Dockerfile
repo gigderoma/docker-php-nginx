@@ -41,8 +41,10 @@ COPY config/php.ini /etc/php8/conf.d/custom.ini
 COPY --from=ochinchina/supervisord:latest /usr/local/bin/supervisord /usr/bin/supervisord
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN mkdir -p /var/www/html/uploads
+
 # Make sure files/folders needed by the processes are accessable when they run under the nobody user
-RUN chown -R nobody.nobody /var/www/html /run /var/lib/nginx /var/log/nginx
+RUN chown -R nobody.nobody /var/www/html /run /var/lib/nginx /var/log/nginx /var/www/html/uploads
 
 # Switch to use a non-root user from here on
 USER nobody
